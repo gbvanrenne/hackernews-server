@@ -1,9 +1,16 @@
-# import Link, LinkSubscriptionPayload, Vote, VoteSubscriptionPayload, LinkOrderByInput from "./generated/prisma.graphql" 
+# import Link from "./generated/prisma.graphql" 
+# import LinkUpdateInput from "./generated/prisma.graphql" 
+# import LinkWhereUniqueInput from "./generated/prisma.graphql" 
+# import LinkSubscriptionPayload from "./generated/prisma.graphql" 
+# import Vote from "./generated/prisma.graphql" 
+# import VoteSubscriptionPayload from "./generated/prisma.graphql" 
+# import LinkOrderByInput from "./generated/prisma.graphql" 
 
 type Query {
   info: String!
   feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
   linkList(filter: String, orderBy: LinkOrderByInput): [Link!]!
+  linkPostedBy(linkID: ID!): Link!
 }
 
 type Feed {
@@ -13,6 +20,7 @@ type Feed {
 
 type Mutation {
   post(url: String!, description: String!): Link!
+  editLink(url: String, description: String, linkID: ID!): Link
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
   vote(linkId: ID!): Vote!
